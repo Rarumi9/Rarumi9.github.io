@@ -270,17 +270,17 @@ $('#thumbnail').slick({
 			</div>
 			
 <div class="container">
-  <form action="/action_page.php">
+  <form id="contact_form" action="confirm.php" method="post">
     <label for="fname">First Name</label>
-    <input type="text" id="fname" name="firstname" placeholder="Your name..">
+    <input type="text" id="fname" name="firstname" placeholder="Your name.." required>
 
     <label for="lname">E-mail</label>
-    <input type="text" id="email" name="email" placeholder="Your email address..">
+    <input type="text" id="email" name="email" placeholder="Your email address.." required>
 
     <label for="subject">Subject</label>
-    <textarea id="subject" name="subject" placeholder="Message..." style="height:200px"></textarea>
+    <textarea id="subject" name="subject" placeholder="Message..." required style="height:200px"></textarea>
 
-    <input type="submit" value="Submit">
+    <input type="submit" value="Submit" id="submit">
   </form>
 </div>
 	  </section>
@@ -306,6 +306,51 @@ $('#thumbnail').slick({
 		<small class="copyright">&copy;copyright 2021 Sofiane LALMI, all rights reserved.
 		</small>
 </footer>
+<script type="text/javascript" src="js/jquery.zip2addr.js"></script>
+<script type="text/javascript" src="js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="js/messages_ja.js"></script>
+	<!-- This script was used to set up the contact me section -->
+<script>
+$(function(){
+	$('#zip1').zip2addr({
+		zip2:'#zip2',
+		pref:'#pref',
+		addr:'#address'
+	})
+	$("#contact_form").validate({
+		errorPlacement: function(error, element) {
+			if(element.is(':radio, :checkbox')) {
+				error.appendTo(element.parent());
+			} else {
+				error.insertAfter(element);
+			}
+		},
+	//E-mailの確認用
+		rules : {
+			email2: {
+				equalTo: "#email1"
+			},
+			pass2: {
+				equalTo: "#pass1"
+			},
+			pass: {
+				minlength: 8,
+				maxlength: 20
+			},
+			shopname: {
+				required: "#shop3:checked"
+			}
+		}
+	});
+});
+$(document).on('click',function(){
+	if ($('#shop3').prop('checked') )
+		$(".check_block").addClass('on_block');
+	else
+		$(".check_block").removeClass('on_block');
+});
+</script>
+	<!-- This script was used to set up the contact me section -->
 <script>
 	var btn = $('#button');
 
